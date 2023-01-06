@@ -1,2 +1,4 @@
 # tinylinalg
-Minimal linear algebra library for use in graphics and game projects
+Minimal linear algebra library for use in graphics and game projects (aka reinvention of the wheel).
+
+This project is an excercise at using templates and GoogleTest. Vectors can be of arbitrary dimensions and have components of types that satisfy `std::integral<T> || std::floating_point<T>`. I tried keeping the Vector class as generic as possible to avoid code duplication (e.g., for addition operator, since addition is done the same way for vectors of all dimensions). Sadly, there is still a lot of code duplication in the implementation of arithmetical operators. Partial specializations for 2D, 3D, and 4D vectors are solely for the purpose of providing a nice way to access their components by name (e.g., `vec.x` and `vec.y`).
