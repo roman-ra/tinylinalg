@@ -39,3 +39,67 @@ T &operator[](size_t idx) \
     return comps[idx]; \
 }
 
+
+#define TLA_IMPLEMENT_BINARY_OPERATOR_VV(OP) \
+template <typename T, unsigned D> \
+inline Vector<T, D> operator OP(const Vector<T, D> &lhs, const Vector<T, D> &rhs) noexcept \
+{ \
+    Vector<T, D> result; \
+    UNROLL_LOOP(D) \
+    for (unsigned i = 0; i < D; i++) \
+    { \
+        result[i] = lhs[i] OP rhs[i]; \
+    } \
+    return result; \
+}
+
+#define TLA_IMPLEMENT_BINARY_OPERATOR_VS(OP) \
+template <typename T, unsigned D> \
+inline Vector<T, D> operator OP(const Vector<T, D> &lhs, T rhs) noexcept \
+{ \
+    Vector<T, D> result; \
+    UNROLL_LOOP(D) \
+    for (unsigned i = 0; i < D; i++) \
+    { \
+        result[i] = lhs[i] OP rhs; \
+    } \
+    return result; \
+}
+
+#define TLA_IMPLEMENT_BINARY_OPERATOR_SV(OP) \
+template <typename T, unsigned D> \
+inline Vector<T, D> operator OP(T lhs, const Vector<T, D> &rhs) noexcept \
+{ \
+    Vector<T, D> result; \
+    UNROLL_LOOP(D) \
+    for (unsigned i = 0; i < D; i++) \
+    { \
+        result[i] = lhs OP rhs[i]; \
+    } \
+    return result; \
+}
+
+#define TLA_IMPLEMENT_COMPOUND_OPERATOR_VV(OP) \
+template <typename T, unsigned D> \
+inline Vector<T, D> &operator OP(Vector<T, D> &lhs, const Vector<T, D> &rhs) noexcept \
+{ \
+    UNROLL_LOOP(D) \
+    for (unsigned i = 0; i < D; i++) \
+    { \
+        lhs[i] OP rhs[i]; \
+    } \
+    return lhs; \
+}
+
+#define TLA_IMPLEMENT_COMPOUND_OPERATOR_VS(OP) \
+template <typename T, unsigned D> \
+inline Vector<T, D> &operator OP(Vector<T, D> &lhs, T rhs) noexcept \
+{ \
+    UNROLL_LOOP(D) \
+    for (unsigned i = 0; i < D; i++) \
+    { \
+        lhs[i] OP rhs; \
+    } \
+    return lhs; \
+}
+

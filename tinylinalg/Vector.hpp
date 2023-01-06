@@ -160,237 +160,30 @@ namespace tla
         return result;
     }
 
-    template <typename T, unsigned D>
-    inline Vector<T, D> operator+(const Vector<T, D> &lhs, const Vector<T, D> &rhs) noexcept
-    {
-        Vector<T, D> result;
-        UNROLL_LOOP(D)
-        for (unsigned i = 0; i < D; i++)
-        {
-            result[i] = lhs[i] + rhs[i];
-        }
-        return result;
-    }
+    TLA_IMPLEMENT_BINARY_OPERATOR_VV(+)
+    TLA_IMPLEMENT_BINARY_OPERATOR_VV(-)
+    TLA_IMPLEMENT_BINARY_OPERATOR_VV(*)
+    TLA_IMPLEMENT_BINARY_OPERATOR_VV(/)
 
-    template <typename T, unsigned D>
-    inline Vector<T, D> operator-(const Vector<T, D> &lhs, const Vector<T, D> &rhs) noexcept
-    {
-        Vector<T, D> result;
-        UNROLL_LOOP(D)
-        for (unsigned i = 0; i < D; i++)
-        {
-            result[i] = lhs[i] - rhs[i];
-        }
-        return result;
-    }
+    TLA_IMPLEMENT_BINARY_OPERATOR_VS(+)
+    TLA_IMPLEMENT_BINARY_OPERATOR_VS(-)
+    TLA_IMPLEMENT_BINARY_OPERATOR_VS(*)
+    TLA_IMPLEMENT_BINARY_OPERATOR_VS(/)
 
-    template <typename T, unsigned D>
-    inline Vector<T, D> operator*(const Vector<T, D> &lhs, const Vector<T, D> &rhs) noexcept
-    {
-        Vector<T, D> result;
-        UNROLL_LOOP(D)
-        for (unsigned i = 0; i < D; i++)
-        {
-            result[i] = lhs[i] * rhs[i];
-        }
-        return result;
-    }
+    TLA_IMPLEMENT_BINARY_OPERATOR_SV(+)
+    TLA_IMPLEMENT_BINARY_OPERATOR_SV(-)
+    TLA_IMPLEMENT_BINARY_OPERATOR_SV(*)
+    TLA_IMPLEMENT_BINARY_OPERATOR_SV(/)
 
-    template <typename T, unsigned D>
-    inline Vector<T, D> operator/(const Vector<T, D> &lhs, const Vector<T, D> &rhs) noexcept
-    {
-        Vector<T, D> result;
-        UNROLL_LOOP(D)
-        for (unsigned i = 0; i < D; i++)
-        {
-            result[i] = lhs[i] / rhs[i];
-        }
-        return result;
-    }
+    TLA_IMPLEMENT_COMPOUND_OPERATOR_VV(+=)
+    TLA_IMPLEMENT_COMPOUND_OPERATOR_VV(-=)
+    TLA_IMPLEMENT_COMPOUND_OPERATOR_VV(*=)
+    TLA_IMPLEMENT_COMPOUND_OPERATOR_VV(/=)
 
-    template <typename T, unsigned D>
-    inline Vector<T, D> operator+(const Vector<T, D> &lhs, T rhs) noexcept
-    {
-        Vector<T, D> result;
-        UNROLL_LOOP(D)
-        for (unsigned i = 0; i < D; i++)
-        {
-            result[i] = lhs[i] + rhs;
-        }
-        return result;
-    }
-
-    template <typename T, unsigned D>
-    inline Vector<T, D> operator-(const Vector<T, D> &lhs, T rhs) noexcept
-    {
-        Vector<T, D> result;
-        UNROLL_LOOP(D)
-        for (unsigned i = 0; i < D; i++)
-        {
-            result[i] = lhs[i] - rhs;
-        }
-        return result;
-    }
-
-    template <typename T, unsigned D>
-    inline Vector<T, D> operator*(const Vector<T, D> &lhs, T rhs) noexcept
-    {
-        Vector<T, D> result;
-        UNROLL_LOOP(D)
-        for (unsigned i = 0; i < D; i++)
-        {
-            result[i] = lhs[i] * rhs;
-        }
-        return result;
-    }
-
-    template <typename T, unsigned D>
-    inline Vector<T, D> operator/(const Vector<T, D> &lhs, T rhs) noexcept
-    {
-        Vector<T, D> result;
-        UNROLL_LOOP(D)
-        for (unsigned i = 0; i < D; i++)
-        {
-            result[i] = lhs[i] / rhs;
-        }
-        return result;
-    }
-
-    template <typename T, unsigned D>
-    inline Vector<T, D> operator+(T lhs, const Vector<T, D> &rhs) noexcept
-    {
-        Vector<T, D> result;
-        UNROLL_LOOP(D)
-        for (unsigned i = 0; i < D; i++)
-        {
-            result[i] = lhs + rhs[i];
-        }
-        return result;
-    }
-
-    template <typename T, unsigned D>
-    inline Vector<T, D> operator-(T lhs, const Vector<T, D> &rhs) noexcept
-    {
-        Vector<T, D> result;
-        UNROLL_LOOP(D)
-        for (unsigned i = 0; i < D; i++)
-        {
-            result[i] = lhs - rhs[i];
-        }
-        return result;
-    }
-
-    template <typename T, unsigned D>
-    inline Vector<T, D> operator*(T lhs, const Vector<T, D> &rhs) noexcept
-    {
-        Vector<T, D> result;
-        UNROLL_LOOP(D)
-        for (unsigned i = 0; i < D; i++)
-        {
-            result[i] = lhs * rhs[i];
-        }
-        return result;
-    }
-
-    template <typename T, unsigned D>
-    inline Vector<T, D> operator/(T lhs, const Vector<T, D> &rhs) noexcept
-    {
-        Vector<T, D> result;
-        UNROLL_LOOP(D)
-        for (unsigned i = 0; i < D; i++)
-        {
-            result[i] = lhs / rhs[i];
-        }
-        return result;
-    }
-
-    template <typename T, unsigned D>
-    inline Vector<T, D> &operator+=(Vector<T, D> &lhs, const Vector<T, D> &rhs) noexcept
-    {
-        UNROLL_LOOP(D)
-        for (unsigned i = 0; i < D; i++)
-        {
-            lhs[i] += rhs[i];
-        }
-        return lhs;
-    }
-
-    template <typename T, unsigned D>
-    inline Vector<T, D> &operator-=(Vector<T, D> &lhs, const Vector<T, D> &rhs) noexcept
-    {
-        UNROLL_LOOP(D)
-        for (unsigned i = 0; i < D; i++)
-        {
-            lhs[i] -= rhs[i];
-        }
-        return lhs;
-    }
-
-    template <typename T, unsigned D>
-    inline Vector<T, D> &operator*=(Vector<T, D> &lhs, const Vector<T, D> &rhs) noexcept
-    {
-        UNROLL_LOOP(D)
-        for (unsigned i = 0; i < D; i++)
-        {
-            lhs[i] *= rhs[i];
-        }
-        return lhs;
-    }
-
-    template <typename T, unsigned D>
-    inline Vector<T, D> &operator/=(Vector<T, D> &lhs, const Vector<T, D> &rhs) noexcept
-    {
-        UNROLL_LOOP(D)
-        for (unsigned i = 0; i < D; i++)
-        {
-            lhs[i] /= rhs[i];
-        }
-        return lhs;
-    }
-
-    template <typename T, unsigned D>
-    inline Vector<T, D> &operator+=(Vector<T, D> &lhs, T rhs) noexcept
-    {
-        UNROLL_LOOP(D)
-        for (unsigned i = 0; i < D; i++)
-        {
-            lhs[i] += rhs;
-        }
-        return lhs;
-    }
-
-    template <typename T, unsigned D>
-    inline Vector<T, D> &operator-=(Vector<T, D> &lhs, T rhs) noexcept
-    {
-        UNROLL_LOOP(D)
-        for (unsigned i = 0; i < D; i++)
-        {
-            lhs[i] -= rhs;
-        }
-        return lhs;
-    }
-
-    template <typename T, unsigned D>
-    inline Vector<T, D> &operator*=(Vector<T, D> &lhs, T rhs) noexcept
-    {
-        UNROLL_LOOP(D)
-        for (unsigned i = 0; i < D; i++)
-        {
-            lhs[i] *= rhs;
-        }
-        return lhs;
-    }
-
-    template <typename T, unsigned D>
-    inline Vector<T, D> &operator/=(Vector<T, D> &lhs, T rhs) noexcept
-    {
-        UNROLL_LOOP(D)
-        for (unsigned i = 0; i < D; i++)
-        {
-            lhs[i] /= rhs;
-        }
-        return lhs;
-    }
+    TLA_IMPLEMENT_COMPOUND_OPERATOR_VS(+=)
+    TLA_IMPLEMENT_COMPOUND_OPERATOR_VS(-=)
+    TLA_IMPLEMENT_COMPOUND_OPERATOR_VS(*=)
+    TLA_IMPLEMENT_COMPOUND_OPERATOR_VS(/=)
 
     template <typename T, unsigned D>
     inline std::ostream &operator<<(std::ostream &stream, const Vector<T, D> &v)
