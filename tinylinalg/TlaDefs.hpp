@@ -102,4 +102,3 @@ inline Vector<T, D> &operator OP(Vector<T, D> &lhs, T rhs) noexcept \
     } \
     return lhs; \
 }
-

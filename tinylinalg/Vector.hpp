@@ -7,6 +7,7 @@
 #include <cstdint>
 #include <cassert>
 #include <functional>
+#include <algorithm>
 
 namespace tla
 {
@@ -242,21 +243,76 @@ namespace tla
     }
 
     template <typename T, unsigned D>
-    inline T distance(const Vector<T, D> &lhs, const Vector<T, D> &rhs) noexcept
+    inline T distance(const Vector<T, D> &v1, const Vector<T, D> &v2) noexcept
     {
-        return length(lhs - rhs);
+        return length(v2 - v1);
     }
 
     template <typename T, unsigned D>
-    inline Vector<T, D> exp(const Vector<T, D> &v) noexcept
+    inline Vector<T, D> min(const Vector<T, D> &v1, const Vector<T, D> &v2) noexcept
     {
         Vector<T, D> result;
         UNROLL_LOOP(D)
         for (unsigned i = 0; i < D; i++)
         {
-            result[i] = std::exp(v[i]);
+            result[i] = std::min(v1[i], v2[i]);
         }
         return result;
+    }
+
+    template <typename T, unsigned D>
+    inline Vector<T, D> max(const Vector<T, D> &v1, const Vector<T, D> &v2) noexcept
+    {
+        Vector<T, D> result;
+        UNROLL_LOOP(D)
+        for (unsigned i = 0; i < D; i++)
+        {
+            result[i] = std::max(v1[i], v2[i]);
+        }
+        return result;
+    }
+
+    template <typename T, unsigned D>
+    inline Vector<T, D> clamp(const Vector<T, D> &v, const Vector<T, D> &lo, const Vector<T, D> &hi) noexcept
+    {
+        Vector<T, D> result;
+        UNROLL_LOOP(D)
+        for (unsigned i = 0; i < D; i++)
+        {
+            result[i] = std::clamp(v[i], lo[i], hi[i]);
+        }
+        return result;
+    }
+
+    template <typename T, unsigned D>
+    inline Vector<T, D> mix(const Vector<T, D> &v1, const Vector<T, D> &v2, T weight) noexcept
+    {
+        Vector<T, D> result = v1 * (T(1) - weight) + v2 * weight;
+        return result;
+    }
+
+    template <typename T, unsigned D>
+    inline Vector<T, D> faceforward(const Vector<T, D> &n, const Vector<T, D> &i, const Vector<T, D> &nRef) noexcept
+    {
+        if (dot(nRef, i) < 0) {
+            return n;
+        } else {
+            return -n;
+        }
+    }
+
+    template <typename T, unsigned D>
+    inline Vector<T, D> reflect(const Vector<T, D> &i, const Vector<T, D> &n) noexcept
+    {
+        return i - T(2) * dot(n, i) * n;
+    }
+
+    template <typename T, unsigned D>
+    inline Vector<T, D> refract(const Vector<T, D> &i, const Vector<T, D> &n, T r) noexcept
+    {
+        T d = T(1) - r * r * (T(1) - dot(n, i) * dot(n, i));
+        if (d < T(0)) return Vector<T, D>{T(0)};
+        return r * i - (r * dot(n, i) + std::sqrt(d)) * n;
     }
 
     template <typename T, unsigned D>
@@ -307,4 +363,23 @@ namespace tla
     using Vector4u = Vector4<uint32_t>;
     using Vector4f = Vector4<float>;
     using Vector4d = Vector4<double>;
+
+    // OpenGL/GLSL-like aliases
+    using bvec2 = Vector2b;
+    using ivec2 = Vector2i;
+    using uvec2 = Vector2u;
+    using vec2 = Vector2f;
+    using dvec2 = Vector2d;
+
+    using bvec3 = Vector3b;
+    using ivec3 = Vector3i;
+    using uvec3 = Vector3u;
+    using vec3 = Vector3f;
+    using dvec3 = Vector3d;
+
+    using bvec4 = Vector4b;
+    using ivec4 = Vector4i;
+    using uvec4 = Vector4u;
+    using vec4 = Vector4f;
+    using dvec4 = Vector4d;
 }
