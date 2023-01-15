@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.25)
+cmake_minimum_required(VERSION 3.18)
 project(tinylinalgtest)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -15,7 +15,7 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_executable(${PROJECT_NAME} TestVector.cpp)
+add_executable(${PROJECT_NAME} TestVector.cpp TestMatrix.cpp)
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/..)
 
